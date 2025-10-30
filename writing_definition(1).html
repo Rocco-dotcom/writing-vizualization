@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Writing Does</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .container {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+            padding-top: 30px;
+        }
+        
+        /* The messy thought cloud on the left */
+        .thought-cloud {
+            position: absolute;
+            left: 50px;
+            top: 35%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 250px;
+        }
+        
+        .thought-fragment {
+            position: absolute;
+            font-size: 11px;
+            color: #666;
+            opacity: 0.7;
+            white-space: nowrap;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .thought-fragment:nth-child(1) { top: 20px; left: 30px; animation-delay: 0s; }
+        .thought-fragment:nth-child(2) { top: 60px; left: 80px; animation-delay: 0.3s; }
+        .thought-fragment:nth-child(3) { top: 100px; left: 10px; animation-delay: 0.6s; }
+        .thought-fragment:nth-child(4) { top: 140px; left: 100px; animation-delay: 0.9s; }
+        .thought-fragment:nth-child(5) { top: 180px; left: 40px; animation-delay: 1.2s; }
+        .thought-fragment:nth-child(6) { top: 50px; left: 160px; animation-delay: 1.5s; }
+        .thought-fragment:nth-child(7) { top: 120px; left: 180px; animation-delay: 1.8s; }
+        .thought-fragment:nth-child(8) { top: 200px; left: 140px; animation-delay: 2.1s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        /* The translation arrow/process in the middle */
+        .translation-zone {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .visual-top {
+            position: absolute;
+            top: -40px;
+            width: 90px;
+            height: 70px;
+            background: #3a3a3a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #4a4a4a;
+        }
+        
+        .visual-top::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 30%;
+            width: 20px;
+            height: 20px;
+            background: #3a3a3a;
+            border-radius: 50%;
+            border: 2px solid #4a4a4a;
+            border-top: none;
+            border-left: none;
+        }
+        
+        .visual-top::before {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 20%;
+            width: 12px;
+            height: 12px;
+            background: #3a3a3a;
+            border-radius: 50%;
+            border: 2px solid #4a4a4a;
+            border-top: none;
+            border-left: none;
+        }
+        
+        .scribble {
+            position: relative;
+            width: 70px;
+            height: 50px;
+        }
+        
+        .scribble-line {
+            stroke: #666;
+            stroke-width: 2;
+            fill: none;
+            opacity: 0.6;
+        }
+        
+        .visual-bottom {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 120px;
+            width: 100px;
+            height: 55px;
+            background: #e8e8e0;
+            border-radius: 2px;
+            padding: 10px 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        
+        .text-line {
+            width: 100%;
+            height: 2px;
+            background: #333;
+            opacity: 0.7;
+        }
+        
+        .text-line:nth-child(1) {
+            width: 100%;
+            height: 2px;
+        }
+        
+        .text-line:nth-child(2) {
+            width: 88%;
+            height: 2px;
+        }
+        
+        .text-line:nth-child(3) {
+            width: 95%;
+            height: 2px;
+        }
+        
+        .text-line:nth-child(4) {
+            width: 82%;
+            height: 2px;
+        }
+        
+        .filter {
+            width: 120px;
+            height: 3px;
+            background: #00ff88;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .arrow {
+            font-size: 40px;
+            color: #00ff88;
+            animation: moveDown 2s ease-in-out infinite;
+        }
+        
+        @keyframes moveDown {
+            0%, 100% { transform: translateY(-5px); }
+            50% { transform: translateY(5px); }
+        }
+        
+        /* The clear text on the right */
+        .output-text {
+            position: absolute;
+            right: 20px;
+            top: 35%;
+            transform: translateY(-50%);
+            width: 280px;
+            color: #00ff88;
+            font-size: 14px;
+            line-height: 1.8;
+            text-align: left;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 16px;
+            background: #00ff88;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Bottom label */
+        .label {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            font-size: 12px;
+            text-align: center;
+            width: 600px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Messy thoughts -->
+        <div class="thought-cloud">
+            <div class="thought-fragment">maybe?</div>
+            <div class="thought-fragment">wait no</div>
+            <div class="thought-fragment">like when</div>
+            <div class="thought-fragment">kind of</div>
+            <div class="thought-fragment">hmm</div>
+            <div class="thought-fragment">or is it</div>
+            <div class="thought-fragment">that thing</div>
+            <div class="thought-fragment">I think</div>
+        </div>
+        
+        <!-- Translation process -->
+        <div class="translation-zone">
+            <div class="visual-top">
+                <svg class="scribble" viewBox="0 0 100 60">
+                    <path class="scribble-line" d="M10,30 Q20,10 30,25 T50,30 Q60,40 70,25 T90,35"/>
+                    <path class="scribble-line" d="M15,40 Q25,50 35,38 T55,42 Q65,30 75,45 T85,40"/>
+                    <path class="scribble-line" d="M20,20 Q30,35 40,18 T60,22 Q70,15 80,28 T95,25"/>
+                </svg>
+            </div>
+            <div class="filter"></div>
+            <div class="arrow">↓</div>
+            <div class="filter"></div>
+            <div class="arrow">↓</div>
+            <div class="filter"></div>
+            <div class="arrow">↓</div>
+            <div class="filter"></div>
+        </div>
+        
+        <!-- Clear output -->
+        <div class="output-text">
+            Writing is the deliberate translation of thought into written language—a process where messy ideas become clear sentences.<span class="cursor"></span>
+        </div>
+        
+        <!-- Page visual in the open space -->
+        <div class="visual-bottom">
+            <div class="text-line"></div>
+            <div class="text-line"></div>
+            <div class="text-line"></div>
+            <div class="text-line"></div>
+        </div>
+        
+        <!-- Label -->
+        <div class="label">
+            Writing doesn't capture perfect thoughts.<br>
+            It discovers what you think by forcing vague feelings into words<br>
+            that can exist without you there to explain them.
+        </div>
+    </div>
+</body>
+</html>
